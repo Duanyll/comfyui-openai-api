@@ -5,11 +5,11 @@ from server import PromptServer
 
 from .iotypes import OAIAPIIO
 
-class Endpoint:
+class Client:
     CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.ENDPOINT,)
+    RETURN_TYPES = (OAIAPIIO.CLIENT,)
     # RETURN_NAMES = ("Target",)
-    FUNCTION = "noop"
+    FUNCTION = "create_client"
 
     @classmethod
     def INPUT_TYPES(s):
@@ -29,7 +29,7 @@ class Endpoint:
                 # "max_retries": (IO.INT, {"default": 3, "tooltip": "Maximum number of retries on failure."})
             }
         }
-    
+
     @classmethod
     def VALIDATE_INPUTS(cls, base_url):
         try:
@@ -40,7 +40,7 @@ class Endpoint:
             return False
         return True
 
-    def noop(self, base_url, api_key=None):
+    def create_client(self, base_url, api_key=None):
         # Here you would typically initialize your endpoint object with the provided parameters
         # For now, we'll just return the base_url as a placeholder
         PromptServer.instance.send_sync("example.imageselector.textmessage", {"message":"test"})

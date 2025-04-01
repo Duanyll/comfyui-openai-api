@@ -13,7 +13,7 @@ class Generate:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "endpoint": (OAIAPIIO.ENDPOINT,),
+                "endpoint": (OAIAPIIO.CLIENT,),
                 "model": (IO.STRING, {
                     "placeholder": "Model name",
                     "tooltip": "The model to use for generating text",
@@ -32,7 +32,7 @@ class Generate:
                 }),
             },
         }
-    
+
     @classmethod
     def VALIDATE_INPUTS(cls, model, prompt):
         if model == "" or prompt == "":

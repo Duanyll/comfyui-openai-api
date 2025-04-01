@@ -1,13 +1,13 @@
-from .endpoint import Endpoint
+from .client import Client
 from .generate import Generate
 
 NODE_CLASS_MAPPINGS = {
-    "OAIAPIEndpoint": Endpoint,
+    "OAIAPIClient": Client,
     "OAIAPIGenerate": Generate,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "OAIAPIEndpoint": "OpenAI API - Endpoint",
+    "OAIAPIClient": "OpenAI API - Client",
     "OAIAPIGenerate": "OpenAI API - Generate",
 }
 

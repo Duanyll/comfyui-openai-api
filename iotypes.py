@@ -4,4 +4,4 @@ class OAIAPIIO(StrEnum):
     """
     Node input/output data types.
     """
-    ENDPOINT = "ENDPOINT"
+    CLIENT = "CLIENT"
