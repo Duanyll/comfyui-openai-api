@@ -4,16 +4,6 @@ from comfy.comfy_types import IO
 
 from .iotypes import OAIAPIIO
 
-class Options:
-    def __init__(self, temperature=None, max_tokens=None, top_p=None, frequency_penalty=None, presence_penalty=None, extra_body_params=None):
-        self.temperature = temperature
-        self.max_tokens = max_tokens
-        self.top_p = top_p
-        self.frequency_penalty = frequency_penalty
-        self.presence_penalty = presence_penalty
-        self.extra_body_params = extra_body_params
-
-
 class OptionTemperature:
     CATEGORY = "OpenAI API"
     RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
@@ -41,9 +31,9 @@ class OptionTemperature:
 
     def merge(self, temperature, options=None):
         if options is None:
-            options = Options(temperature=temperature)
+            options = {"temperature": temperature}
         else:
-            options.temperature = temperature
+            options["temperature"] = temperature
         return (options,)
 
 
@@ -72,9 +62,9 @@ class OptionMaxTokens:
 
     def merge(self, max_tokens, options=None):
         if options is None:
-            options = Options(max_tokens=max_tokens)
+            options = {"max_tokens": max_tokens}
         else:
-            options.max_tokens = max_tokens
+            options["max_tokens"] = max_tokens
         return (options,)
 
 
@@ -104,9 +94,9 @@ class OptionTopP:
 
     def merge(self, top_p, options=None):
         if options is None:
-            options = Options(top_p=top_p)
+            options = {"top_p": top_p}
         else:
-            options.top_p = top_p
+            options["top_p"] = top_p
         return (options,)
 
 
@@ -136,9 +126,9 @@ class OptionFrequencyPenalty:
 
     def merge(self, frequency_penalty, options=None):
         if options is None:
-            options = Options(frequency_penalty=frequency_penalty)
+            options = {"frequency_penalty": frequency_penalty}
         else:
-            options.frequency_penalty = frequency_penalty
+            options["frequency_penalty"] = frequency_penalty
         return (options,)
 
 
@@ -168,9 +158,9 @@ class OptionPresencePenalty:
 
     def merge(self, presence_penalty, options=None):
         if options is None:
-            options = Options(presence_penalty=presence_penalty)
+            options = {"presence_penalty": presence_penalty}
         else:
-            options.presence_penalty = presence_penalty
+            options["presence_penalty"] = presence_penalty
         return (options,)
 
 
@@ -209,7 +199,29 @@ class OptionExtraBody:
 
     def merge(self, extra_body, options=None):
         if options is None:
-            options = Options(extra_body_params=json.loads(extra_body))
+            options = json.loads(extra_body)
         else:
-            options.extra_body_params.update(json.loads(extra_body))
+            options = dict(options)
+            options.update(json.loads(extra_body))
         return (options,)
+
+
+class OptionDebug:
+    CATEGORY = "OpenAI API"
+    RETURN_TYPES = (IO.STRING,)
+    RETURN_NAMES = ("ENCODED_JSON",)
+    FUNCTION = "marshall"
+    OUTPUT_NODE = True
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                    "tooltip": "Options chain you want encode",
+                }),
+            },
+        }
+
+    def marshall(self, options):
+        return (json.dumps(options, indent=4),)
