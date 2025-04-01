@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from comfy.comfy_types import IO
-from server import PromptServer
+from openai import OpenAI
 
 from .iotypes import OAIAPIIO
 
@@ -19,14 +19,22 @@ class Client:
                     "default": "https://api.openai.com/v1",
                     "placeholder": "http(s)://host[:port][/URI]",
                     "tooltip": "The base URL to use for the OpenAI API requests",
-                })
+                }),
+                "max_retries": (IO.INT, {
+                    "min": 0,
+                    "default": 2,
+                    "tooltip": "Maximum number of retries on failure"
+                }),
+                "timeout": (IO.INT, {
+                    "min": 1,
+                    "default": 600,
+                    "tooltip": "Request timeout in seconds"
+                }),
             },
             "optional": {
                 "api_key": (IO.STRING, {
                     "tooltip": "The API key to use, if any"
                 })
-                # "timeout": (IO.FLOAT, {"default": 30.0, "tooltip": "Request timeout in seconds."}),
-                # "max_retries": (IO.INT, {"default": 3, "tooltip": "Maximum number of retries on failure."})
             }
         }
 
@@ -40,14 +48,10 @@ class Client:
             return False
         return True
 
-    def create_client(self, base_url, api_key=None):
-        # Here you would typically initialize your endpoint object with the provided parameters
-        # For now, we'll just return the base_url as a placeholder
-        PromptServer.instance.send_sync("example.imageselector.textmessage", {"message":"test"})
-        return (EndpointConfig(base_url, api_key),)
-
-
-class EndpointConfig:
-    def __init__(self, base_url, api_key=None):
-        self.base_url = base_url
-        self.api_key = api_key
+    def create_client(self, base_url, api_key=None, max_retries=2, timeout=600):
+        return (OpenAI(
+            api_key=api_key,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout
+        ),)
