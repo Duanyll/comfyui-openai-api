@@ -43,9 +43,9 @@ class Client:
         try:
             result = urlparse(base_url)
             if result.scheme not in ["http", "https"]:
-                return False
-        except ValueError:
-            return False
+                return "URL scheme must be http or https"
+        except ValueError as e:
+            return f"invalid URL: {e}"
         return True
 
     def create_client(self, base_url, api_key=None, max_retries=2, timeout=600):

@@ -1,13 +1,11 @@
-import json
-
 from comfy.comfy_types import IO
 
 from .iotypes import OAIAPIIO
 
 class ChatCompletion:
     CATEGORY = "OpenAI API"
-    RETURN_TYPES = (IO.STRING, IO.STRING)
-    RETURN_NAMES = ("Response", "Debug")
+    RETURN_TYPES = (IO.STRING,)
+    RETURN_NAMES = ("Response",)
     FUNCTION = "generate"
 
     @classmethod
@@ -35,6 +33,10 @@ class ChatCompletion:
                     "default": False,
                     "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
                 }),
+                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                    "default": None,
+                    "tooltip": "Chat completion options. This can be used to specify additional parameters for the chat completion request.",
+                })
             },
         }
 
@@ -44,7 +46,7 @@ class ChatCompletion:
             return False
         return True
 
-    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False):
+    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, options=None):
         messages = []
         if system_prompt:
             messages.append({
@@ -58,3 +60,5 @@ class ChatCompletion:
         )
         print(messages)
         return (completion.choices[0].message.content,)
+
+
