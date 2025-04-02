@@ -67,7 +67,7 @@ class ChatCompletion:
             return "prompt must be specified"
         return True
 
-    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, history=None, options=None, images=None):
+    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, history=None, options=None, image=None):
         # Handle system prompt
         system_role = "developer" if use_developer_role else "system"
         if history is not None:
@@ -90,15 +90,15 @@ class ChatCompletion:
                     "content": system_prompt,
                 })
         # Handle user message
-        if images is not None:
+        if image is not None:
             # Build multi modal content
             content = []
-            for image in images:
+            for batch_image in image:
                 content.append(
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/png;base64,{image_to_base64_png(image)}"
+                            "url": f"data:image/png;base64,{image_to_base64_png(batch_image)}"
                         }
                     }
                 )
@@ -176,7 +176,7 @@ class ChatCompletion:
         )
 
 
-def image_to_base64_png(self, image):
+def image_to_base64_png(image):
     # Taken from the SaveImage ComfyUI node
     i = 255. * image.cpu().numpy()
     img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
