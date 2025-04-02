@@ -1,5 +1,8 @@
-import hashlib
-import json
+import base64
+import io
+
+import numpy as np
+from PIL import Image
 
 from comfy.comfy_types import IO
 
@@ -43,12 +46,16 @@ class ChatCompletion:
                 "options": (OAIAPIIO.OPTIONS, {
                     "default": None,
                     "tooltip": "Chat completion options. This can be used to specify additional parameters for the chat completion request.",
+                }),
+                "image": (IO.IMAGE, {
+                    "default": None,
+                    "tooltip": "One or multiples images to send along with the prompt. The model must have multi modals capabilities to process images.",
                 })
             },
         }
 
     @classmethod
-    def IS_CHANGED(s, client, model, prompt, system_prompt="", use_developer_role=False, options=None):
+    def IS_CHANGED(s, client, model, prompt, system_prompt="", use_developer_role=False, options=None, image=None):
         # User might want to regenerate even if we have not changed
         return float("NaN")
 
@@ -60,8 +67,8 @@ class ChatCompletion:
             return "prompt must be specified"
         return True
 
-    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, options=None, history=None):
-        # Create messages
+    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, history=None, options=None, images=None):
+        # Handle system prompt
         system_role = "developer" if use_developer_role else "system"
         if history is not None:
             messages = history.copy()
@@ -82,7 +89,39 @@ class ChatCompletion:
                     "role": "developer" if use_developer_role else "system",
                     "content": system_prompt,
                 })
-        messages.append({"role": "user", "content": prompt})
+        # Handle user message
+        if images is not None:
+            # Build multi modal content
+            content = []
+            for image in images:
+                content.append(
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{self.image_to_base64_png(image)}"
+                        }
+                    }
+                )
+            content.append(
+                {
+                    "type": "text",
+                    "text": prompt
+                }
+            )
+            # Add the multi-modal content to the messages list
+            messages.append(
+                {
+                    "role": "user",
+                    "content": content,
+                }
+            )
+        else:
+            messages.append(
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            )
         # Handle options
         seed = None
         temperature = None
@@ -135,3 +174,12 @@ class ChatCompletion:
             completion.choices[0].message.content,
             messages,
         )
+
+    def image_to_base64_png(self, image):
+        # Taken from the SaveImage ComfyUI node
+        i = 255. * image.cpu().numpy()
+        img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+        # But we do not want it on disk, but in memory as b64
+        buffer = io.BytesIO()
+        img.save(buffer, format="PNG")
+        return base64.b64encode(buffer.getvalue()).decode('utf-8')

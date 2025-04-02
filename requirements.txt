@@ -1,1 +1,5 @@
-openai>=1.70.0
+openai
+
+# Same as ComfyUI
+numpy>=1.25.0
+Pillow
