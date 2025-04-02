@@ -233,24 +233,3 @@ class OptionExtraBody:
             options = dict(options)
             options.update(json.loads(extra_body))
         return (options,)
-
-
-class OptionsDebug:
-    CATEGORY = "OpenAI API/Options"
-    RETURN_TYPES = (IO.STRING,)
-    RETURN_NAMES = ("ENCODED_JSON",)
-    FUNCTION = "marshall"
-    OUTPUT_NODE = True
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "options": (OAIAPIIO.OPTIONS, {
-                    "tooltip": "Options chain you want encode",
-                }),
-            },
-        }
-
-    def marshall(self, options):
-        return (json.dumps(options, indent=4),)

@@ -1,10 +1,12 @@
 from .client import Client
 from .completions import ChatCompletion
-from .options import OptionSeed, OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody, OptionsDebug
+from .debug import Debug
+from .options import OptionSeed, OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody
 
 NODE_CLASS_MAPPINGS = {
     "OAIAPIClient": Client,
     "OAIAPIChatCompletion": ChatCompletion,
+    "OAIAPIDebug": Debug,
     "OAIAPISeed": OptionSeed,
     "OAIAPITemperature": OptionTemperature,
     "OAIAPIMaxTokens": OptionMaxTokens,
@@ -12,12 +14,12 @@ NODE_CLASS_MAPPINGS = {
     "OAIAPIFrequencyPenalty": OptionFrequencyPenalty,
     "OAIAPIPresencePenalty": OptionPresencePenalty,
     "OAIAPIExtraBody": OptionExtraBody,
-    "OAIAPIDebug": OptionsDebug,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "OAIAPIClient": "OpenAI API - Client",
     "OAIAPIChatCompletion": "OpenAI API - Chat Completion",
+    "OAIAPIDebug": "OpenAI API - Debug",
     "OAIAPISeed": "OpenAI API - Seed",
     "OAIAPITemperature": "OpenAI API - Temperature",
     "OAIAPIMaxTokens": "OpenAI API - Max Tokens",
@@ -25,7 +27,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "OAIAPIFrequencyPenalty": "OpenAI API - Frequency Penalty",
     "OAIAPIPresencePenalty": "OpenAI API - Presence Penalty",
     "OAIAPIExtraBody": "OpenAI API - Extra Body",
-    "OAIAPIDebug": "OpenAI API - Debug",
 }
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']

@@ -7,8 +7,8 @@ from .iotypes import OAIAPIIO
 
 class ChatCompletion:
     CATEGORY = "OpenAI API"
-    RETURN_TYPES = (IO.STRING,OAIAPIIO.HISTORY)
-    RETURN_NAMES = ("RESPONSE","HISTORY")
+    RETURN_TYPES = (IO.STRING, OAIAPIIO.HISTORY)
+    RETURN_NAMES = ("RESPONSE", "HISTORY")
     FUNCTION = "generate"
 
     @classmethod
@@ -65,7 +65,7 @@ class ChatCompletion:
                 "content": system_prompt,
             })
         messages.append({"role": "user", "content": prompt})
-        # Handle official options
+        # Handle options
         seed = None
         temperature = None
         max_tokens = None
@@ -93,7 +93,6 @@ class ChatCompletion:
             if "presence_penalty" in options:
                 presence_penalty = options["presence_penalty"]
                 del options["presence_penalty"]
-        print(f"final options: {options}")
         # Create the completion
         completion = client.chat.completions.create(
             model=model,
@@ -107,6 +106,14 @@ class ChatCompletion:
             extra_body=options,
             n=1
         )
-        print(f"Completion: {completion.choices[0]}")
-        # Return the response
-        return (completion.choices[0].message.content,"")
+        # Return the response and the history
+        messages.append(
+            {
+                "role": completion.choices[0].message.role,
+                "content": completion.choices[0].message.content
+            }
+        )
+        return (
+            completion.choices[0].message.content,
+            messages,
+        )

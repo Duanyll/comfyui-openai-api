@@ -7,4 +7,4 @@ class OAIAPIIO(StrEnum):
     CLIENT = "CLIENT"
     OPTIONS = "OPTIONS"
     HISTORY = "HISTORY"
-
+    DEBUG = f"{OPTIONS},{HISTORY}"
