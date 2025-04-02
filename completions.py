@@ -55,7 +55,7 @@ class ChatCompletion:
         }
 
     @classmethod
-    def IS_CHANGED(s, client, model, prompt, system_prompt="", use_developer_role=False, options=None, image=None):
+    def IS_CHANGED(s, client, model, prompt, system_prompt="", use_developer_role=False, history=None, options=None, image=None):
         # User might want to regenerate even if we have not changed
         return float("NaN")
 
