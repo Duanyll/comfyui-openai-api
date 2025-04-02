@@ -10,13 +10,13 @@ Thanks to its simplicity the project has a low footprint: it only has 1 external
 - `numpy` for computation but it is already a dependency of ComfyUI
 - `Pillow` also already used by ComfyUI for image processing
 
-The default `base_url` parameter targets the official OpenAI API server but by changing it, you can also use this project with other openai compatible servers like vLLM, TGI, etc...
+The default `base_url` parameter value targets the official OpenAI API endpoint but by changing it, you can also use this project with any openai compatible servers like vLLM, TGI, etc...
 
 ## Installation
 
 ### ComfyUI Manager
 
-This project has not been submitted to Comfy Manager yet. To install it with the manager, go to Custom Nodes Manager and use the Install via Git URL button in the bottom right corner. Enter the following URL: `https://github.com/hekmon/comfyui-openai-api.git`
+This project has not been submitted to Comfy Manager yet. To install it with the manager, go to `Custom Nodes Manager` and use the `Install via Git URL` button in the bottom right corner. Enter the following URL: `https://github.com/hekmon/comfyui-openai-api.git`
 
 ### Manually
 
