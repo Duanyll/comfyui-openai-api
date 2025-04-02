@@ -66,38 +66,39 @@ class ChatCompletion:
             })
         messages.append({"role": "user", "content": prompt})
         # Handle official options
+        seed = None
+        temperature = None
+        max_tokens = None
+        top_p = None
+        frequency_penalty = None
+        presence_penalty = None
         if options is None:
             options = {}
-        if hasattr(options, "temperature"):
-            temperature = options["temperature"]
-            delattr(options, "temperature")
         else:
-            temperature = None
-        if hasattr(options, "max_tokens"):
-            max_tokens = options["max_tokens"]
-            delattr(options, "max_tokens")
-        else:
-            max_tokens = None
-        if hasattr(options, "top_p"):
-            top_p = options["top_p"]
-            delattr(options, "top_p")
-        else:
-            top_p = None
-        if hasattr(options, "frequency_penalty"):
-            frequency_penalty = options["frequency_penalty"]
-            delattr(options, "frequency_penalty")
-        else:
-            frequency_penalty = None
-        if hasattr(options, "presence_penalty"):
-            presence_penalty = options["presence_penalty"]
-            delattr(options, "presence_penalty")
-        else:
-            presence_penalty = None
+            if hasattr(options, "seed"):
+                seed = options["seed"]
+                delattr(options, "seed")
+            if hasattr(options, "temperature"):
+                temperature = options["temperature"]
+                delattr(options, "temperature")
+            if hasattr(options, "max_tokens"):
+                max_tokens = options["max_tokens"]
+                delattr(options, "max_tokens")
+            if hasattr(options, "top_p"):
+                top_p = options["top_p"]
+                delattr(options, "top_p")
+            if hasattr(options, "frequency_penalty"):
+                frequency_penalty = options["frequency_penalty"]
+                delattr(options, "frequency_penalty")
+            if hasattr(options, "presence_penalty"):
+                presence_penalty = options["presence_penalty"]
+                delattr(options, "presence_penalty")
         print(f"final options: {options}")
         # Create the completion
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
+            seed=seed,
             temperature=temperature,
             max_tokens=max_tokens,
             top_p=top_p,

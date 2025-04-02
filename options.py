@@ -4,6 +4,35 @@ from comfy.comfy_types import IO
 
 from .iotypes import OAIAPIIO
 
+class OptionSeed:
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
+    RETURN_NAMES = ("OPTIONS",)
+    FUNCTION = "merge"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "seed": (IO.INT, {
+                    "tooltip": "Repeated requests with the same seed and parameters should return the same result. Control randomness.",
+                    "forceInput": True,
+                }),
+            },
+            "optional": {
+                "options": (OAIAPIIO.OPTIONS, {
+                    "tooltip": "Others options to merge with",
+                }),
+            },
+        }
+
+    def merge(self, seed, options=None):
+        if options is None:
+            options = {"seed": seed}
+        else:
+            options["seed"] = seed
+        return (options,)
+
 class OptionTemperature:
     CATEGORY = "OpenAI API/Options"
     RETURN_TYPES = (OAIAPIIO.OPTIONS,)

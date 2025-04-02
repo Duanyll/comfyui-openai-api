@@ -1,10 +1,11 @@
 from .client import Client
 from .completions import ChatCompletion
-from .options import OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody, OptionsDebug
+from .options import OptionSeed, OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody, OptionsDebug
 
 NODE_CLASS_MAPPINGS = {
     "OAIAPIClient": Client,
     "OAIAPIChatCompletion": ChatCompletion,
+    "OAIAPISeed": OptionSeed,
     "OAIAPITemperature": OptionTemperature,
     "OAIAPIMaxTokens": OptionMaxTokens,
     "OAIAPITopP": OptionTopP,
@@ -17,6 +18,7 @@ NODE_CLASS_MAPPINGS = {
 NODE_DISPLAY_NAME_MAPPINGS = {
     "OAIAPIClient": "OpenAI API - Client",
     "OAIAPIChatCompletion": "OpenAI API - Chat Completion",
+    "OAIAPISeed": "OpenAI API - Seed",
     "OAIAPITemperature": "OpenAI API - Temperature",
     "OAIAPIMaxTokens": "OpenAI API - Max Tokens",
     "OAIAPITopP": "OpenAI API - Top P",
