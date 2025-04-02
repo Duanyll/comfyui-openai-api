@@ -98,7 +98,7 @@ class ChatCompletion:
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/png;base64,{self.image_to_base64_png(image)}"
+                            "url": f"data:image/png;base64,{image_to_base64_png(image)}"
                         }
                     }
                 )
@@ -175,11 +175,12 @@ class ChatCompletion:
             messages,
         )
 
-    def image_to_base64_png(self, image):
-        # Taken from the SaveImage ComfyUI node
-        i = 255. * image.cpu().numpy()
-        img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
-        # But we do not want it on disk, but in memory as b64
-        buffer = io.BytesIO()
-        img.save(buffer, format="PNG")
-        return base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+def image_to_base64_png(self, image):
+    # Taken from the SaveImage ComfyUI node
+    i = 255. * image.cpu().numpy()
+    img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+    # But we do not want it on disk, but in memory as b64
+    buffer = io.BytesIO()
+    img.save(buffer, format="PNG")
+    return base64.b64encode(buffer.getvalue()).decode('utf-8')
