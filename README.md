@@ -2,7 +2,7 @@
 
 This repository contains ComfyUI nodes that integrates with the OpenAI API: it allows you to use language models and vision language models within your workflow.
 
-It is KISS by design and intended for those who only wants basic capabilities without importing massives projects like [LLM party](https://github.com/heshengtao/comfyui_LLM_party): only the chat completions endpoint is implemented as it should be enough for 99% of use cases.
+It is KISS by design and intended for those who only wants basic capabilities without having to import massive projects like [LLM party](https://github.com/heshengtao/comfyui_LLM_party): only the chat completions endpoint is implemented as it should be enough for 99% of use cases.
 
 Thanks to its low footprint, the project has a lighting import and initialization time but as it only has 1 external dependency (3 in total):
 
