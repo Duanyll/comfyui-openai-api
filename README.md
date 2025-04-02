@@ -8,7 +8,7 @@ Thanks to its low footprint, the project has a lighting import and initializatio
 - `numpy` for computation but it is already a dependency of ComfyUI
 - `Pillow` also already used by ComfyUI for image processing
 
-Thanks to the `base_url` parameter, you can also use this project with other openai compatible servers like vLLM, TGI, etc...
+The default `base_url` parameter targets the official OpenAI API server but by changing it, you can also use this project with other openai compatible servers like vLLM, TGI, etc...
 
 ## Installation
 
