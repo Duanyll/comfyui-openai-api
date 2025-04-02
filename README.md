@@ -37,6 +37,6 @@ You only need 2 nodes to get started:
 
 If you want to customize the chat completion, you can chain options to modify the request. Most common options are available as predefined nodes but you can inject any key/value pair using the `Extra body` node.
 
-Also, several chat completions can be chained to them to share the context history of previous turn.
+Also, several chat completions can be chained to share the context history of previous turns.
 
 ![Advanced Example](res/advanced.png)
