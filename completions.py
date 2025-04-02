@@ -7,8 +7,8 @@ from .iotypes import OAIAPIIO
 
 class ChatCompletion:
     CATEGORY = "OpenAI API"
-    RETURN_TYPES = (IO.STRING,)
-    RETURN_NAMES = ("Response",)
+    RETURN_TYPES = (IO.STRING,OAIAPIIO.HISTORY)
+    RETURN_NAMES = ("RESPONSE","HISTORY")
     FUNCTION = "generate"
 
     @classmethod
@@ -36,7 +36,7 @@ class ChatCompletion:
                     "default": False,
                     "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
                 }),
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "default": None,
                     "tooltip": "Chat completion options. This can be used to specify additional parameters for the chat completion request.",
                 })
@@ -93,6 +93,7 @@ class ChatCompletion:
             delattr(options, "presence_penalty")
         else:
             presence_penalty = None
+        print(f"final options: {options}")
         # Create the completion
         completion = client.chat.completions.create(
             model=model,
@@ -102,7 +103,9 @@ class ChatCompletion:
             top_p=top_p,
             frequency_penalty=frequency_penalty,
             presence_penalty=presence_penalty,
-            extra_body=options
-
+            extra_body=options,
+            n=1
         )
-        return (completion.choices[0].message.content,)
+        print(f"Completion: {completion.choices[0]}")
+        # Return the response
+        return (completion.choices[0].message.content,"")

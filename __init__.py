@@ -1,29 +1,29 @@
 from .client import Client
 from .completions import ChatCompletion
-from .options import OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody, OptionDebug
+from .options import OptionTemperature, OptionMaxTokens, OptionTopP, OptionFrequencyPenalty, OptionPresencePenalty, OptionExtraBody, OptionsDebug
 
 NODE_CLASS_MAPPINGS = {
     "OAIAPIClient": Client,
     "OAIAPIChatCompletion": ChatCompletion,
-    "OAIAPIOptionTemperature": OptionTemperature,
-    "OAIAPIOptionMaxTokens": OptionMaxTokens,
-    "OAIAPIOptionTopP": OptionTopP,
-    "OAIAPIOptionFrequencyPenalty": OptionFrequencyPenalty,
-    "OAIAPIOptionPresencePenalty": OptionPresencePenalty,
-    "OAIAPIOptionExtraBody": OptionExtraBody,
-    "OAIAPIOptionDebug": OptionDebug,
+    "OAIAPITemperature": OptionTemperature,
+    "OAIAPIMaxTokens": OptionMaxTokens,
+    "OAIAPITopP": OptionTopP,
+    "OAIAPIFrequencyPenalty": OptionFrequencyPenalty,
+    "OAIAPIPresencePenalty": OptionPresencePenalty,
+    "OAIAPIExtraBody": OptionExtraBody,
+    "OAIAPIDebug": OptionsDebug,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "OAIAPIClient": "OpenAI API - Client",
     "OAIAPIChatCompletion": "OpenAI API - Chat Completion",
-    "OAIAPIOptionTemperature": "OpenAI API - Option - Temperature",
-    "OAIAPIOptionMaxTokens": "OpenAI API - Option - Max Tokens",
-    "OAIAPIOptionTopP": "OpenAI API - Option - Top P",
-    "OAIAPIOptionFrequencyPenalty": "OpenAI API - Option - Frequency Penalty",
-    "OAIAPIOptionPresencePenalty": "OpenAI API - Option - Presence Penalty",
-    "OAIAPIOptionExtraBody": "OpenAI API - Option - Extra Body",
-    "OAIAPIOptionDebug": "OpenAI API - Option - Debug",
+    "OAIAPITemperature": "OpenAI API - Temperature",
+    "OAIAPIMaxTokens": "OpenAI API - Max Tokens",
+    "OAIAPITopP": "OpenAI API - Top P",
+    "OAIAPIFrequencyPenalty": "OpenAI API - Frequency Penalty",
+    "OAIAPIPresencePenalty": "OpenAI API - Presence Penalty",
+    "OAIAPIExtraBody": "OpenAI API - Extra Body",
+    "OAIAPIDebug": "OpenAI API - Debug",
 }
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']

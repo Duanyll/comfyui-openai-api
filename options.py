@@ -5,8 +5,8 @@ from comfy.comfy_types import IO
 from .iotypes import OAIAPIIO
 
 class OptionTemperature:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -23,7 +23,7 @@ class OptionTemperature:
                 }),
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -38,8 +38,8 @@ class OptionTemperature:
 
 
 class OptionMaxTokens:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -54,7 +54,7 @@ class OptionMaxTokens:
                 }),
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -69,8 +69,8 @@ class OptionMaxTokens:
 
 
 class OptionTopP:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -86,7 +86,7 @@ class OptionTopP:
                 })
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -101,8 +101,8 @@ class OptionTopP:
 
 
 class OptionFrequencyPenalty:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -118,7 +118,7 @@ class OptionFrequencyPenalty:
                 }),
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -133,8 +133,8 @@ class OptionFrequencyPenalty:
 
 
 class OptionPresencePenalty:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -150,7 +150,7 @@ class OptionPresencePenalty:
                 }),
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -165,8 +165,8 @@ class OptionPresencePenalty:
 
 
 class OptionExtraBody:
-    CATEGORY = "OpenAI API"
-    RETURN_TYPES = (OAIAPIIO.CHAT_COMPLETION_OPTIONS,)
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
     RETURN_NAMES = ("OPTIONS",)
     FUNCTION = "merge"
 
@@ -181,7 +181,7 @@ class OptionExtraBody:
                 }),
             },
             "optional": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Others options to merge with",
                 }),
             },
@@ -206,8 +206,8 @@ class OptionExtraBody:
         return (options,)
 
 
-class OptionDebug:
-    CATEGORY = "OpenAI API"
+class OptionsDebug:
+    CATEGORY = "OpenAI API/Options"
     RETURN_TYPES = (IO.STRING,)
     RETURN_NAMES = ("ENCODED_JSON",)
     FUNCTION = "marshall"
@@ -217,7 +217,7 @@ class OptionDebug:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "options": (OAIAPIIO.CHAT_COMPLETION_OPTIONS, {
+                "options": (OAIAPIIO.OPTIONS, {
                     "tooltip": "Options chain you want encode",
                 }),
             },
