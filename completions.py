@@ -36,6 +36,10 @@ class ChatCompletion:
                     "default": False,
                     "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
                 }),
+                "history": (OAIAPIIO.HISTORY, {
+                    "default": None,
+                    "tooltip": "Chat completions history to send to the OpenAI API. If system prompt is (re)specified it will be overwritten by the new one. If system prompt is not specified, the previous one (if any) will be used.",
+                }),
                 "options": (OAIAPIIO.OPTIONS, {
                     "default": None,
                     "tooltip": "Chat completion options. This can be used to specify additional parameters for the chat completion request.",
@@ -56,14 +60,28 @@ class ChatCompletion:
             return "prompt must be specified"
         return True
 
-    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, options=None):
+    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, options=None, history=None):
         # Create messages
-        messages = []
-        if system_prompt:
-            messages.append({
-                "role": "developer" if use_developer_role else "system",
-                "content": system_prompt,
-            })
+        system_role = "developer" if use_developer_role else "system"
+        if history is not None:
+            messages = history.copy()
+            if system_prompt is not None:
+                # Should we insert it at the beginning or replace the existing system message?
+                if history[0]["role"] == "system" or history[0]["role"] == "developer":
+                    messages[0]["role"] = system_role
+                    messages[0]["content"] = system_prompt
+                else:
+                    messages.insert(0, {
+                        "role": system_role,
+                        "content": system_prompt,
+                    })
+        else:
+            messages = []
+            if system_prompt:
+                messages.append({
+                    "role": "developer" if use_developer_role else "system",
+                    "content": system_prompt,
+                })
         messages.append({"role": "user", "content": prompt})
         # Handle options
         seed = None
