@@ -75,24 +75,24 @@ class ChatCompletion:
         if options is None:
             options = {}
         else:
-            if hasattr(options, "seed"):
+            if "seed" in options:
                 seed = options["seed"]
-                delattr(options, "seed")
-            if hasattr(options, "temperature"):
+                del options["seed"]
+            if "temperature" in options:
                 temperature = options["temperature"]
-                delattr(options, "temperature")
-            if hasattr(options, "max_tokens"):
+                del options["temperature"]
+            if "max_tokens" in options:
                 max_tokens = options["max_tokens"]
-                delattr(options, "max_tokens")
-            if hasattr(options, "top_p"):
+                del options["max_tokens"]
+            if "top_p" in options:
                 top_p = options["top_p"]
-                delattr(options, "top_p")
-            if hasattr(options, "frequency_penalty"):
+                del options["top_p"]
+            if "frequency_penalty" in options:
                 frequency_penalty = options["frequency_penalty"]
-                delattr(options, "frequency_penalty")
-            if hasattr(options, "presence_penalty"):
+                del options["frequency_penalty"]
+            if "presence_penalty" in options:
                 presence_penalty = options["presence_penalty"]
-                delattr(options, "presence_penalty")
+                del options["presence_penalty"]
         print(f"final options: {options}")
         # Create the completion
         completion = client.chat.completions.create(
