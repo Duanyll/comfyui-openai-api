@@ -22,7 +22,7 @@ This project has not been submitted to Comfy Manager yet. To install it with the
 
 On the github interface, click the green `<> Code` button and then `Download ZIP`. Extract the root folder of the zip file into your `ComfyUI/custom_nodes` directory.
 
-## Exemple
+## Example
 
 ### Simple
 
