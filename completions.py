@@ -24,14 +24,14 @@ class ChatCompletion:
                     "tooltip": "The model to use for generating text",
                 }),
                 "prompt": (IO.STRING, {
-                    "placeholder": "User prompt is mandatory",
+                    "placeholder": "user prompt is mandatory",
                     "tooltip": "The user prompt to send to the OpenAI API",
                     "multiline": True,
                 }),
             },
             "optional": {
                 "system_prompt": (IO.STRING, {
-                    "placeholder": "System/Developer prompt is optional",
+                    "placeholder": "system/seveloper prompt is optional",
                     "tooltip": "The system prompt to send along with the user prompt",
                     "multiline": True,
                 }),
