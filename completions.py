@@ -35,10 +35,6 @@ class ChatCompletion:
                     "tooltip": "The system prompt to send along with the user prompt",
                     "multiline": True,
                 }),
-                "use_developer_role": (IO.BOOLEAN, {
-                    "default": False,
-                    "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
-                }),
                 "history": (OAIAPIIO.HISTORY, {
                     "default": None,
                     "tooltip": "Chat completions history to send to the OpenAI API. If system prompt is (re)specified it will be overwritten by the new one. If system prompt is not specified, the previous one (if any) will be used.",
@@ -55,7 +51,7 @@ class ChatCompletion:
         }
 
     @classmethod
-    def IS_CHANGED(s, client, model, prompt, system_prompt="", use_developer_role=False, history=None, options=None, image=None):
+    def IS_CHANGED(s, client, model, prompt, system_prompt="", history=None, options=None, image=None):
         # User might want to regenerate even if we have not changed
         return float("NaN")
 
@@ -67,7 +63,37 @@ class ChatCompletion:
             return "prompt must be specified"
         return True
 
-    def generate(self, client, model, prompt, system_prompt=None, use_developer_role=False, history=None, options=None, image=None):
+    def generate(self, client, model, prompt, system_prompt=None, history=None, options=None, image=None):
+        # Handle options
+        seed = None
+        temperature = None
+        max_tokens = None
+        top_p = None
+        frequency_penalty = None
+        presence_penalty = None
+        use_developer_role = False
+        if options is not None:
+            if "seed" in options:
+                seed = options["seed"]
+                del options["seed"]
+            if "temperature" in options:
+                temperature = options["temperature"]
+                del options["temperature"]
+            if "max_tokens" in options:
+                max_tokens = options["max_tokens"]
+                del options["max_tokens"]
+            if "top_p" in options:
+                top_p = options["top_p"]
+                del options["top_p"]
+            if "frequency_penalty" in options:
+                frequency_penalty = options["frequency_penalty"]
+                del options["frequency_penalty"]
+            if "presence_penalty" in options:
+                presence_penalty = options["presence_penalty"]
+                del options["presence_penalty"]
+            if "use_developer_role" in options:
+                use_developer_role = options["use_developer_role"]
+                del options["use_developer_role"]
         # Handle system prompt
         system_role = "developer" if use_developer_role else "system"
         if history is not None:
@@ -122,34 +148,6 @@ class ChatCompletion:
                     "content": prompt
                 }
             )
-        # Handle options
-        seed = None
-        temperature = None
-        max_tokens = None
-        top_p = None
-        frequency_penalty = None
-        presence_penalty = None
-        if options is None:
-            options = {}
-        else:
-            if "seed" in options:
-                seed = options["seed"]
-                del options["seed"]
-            if "temperature" in options:
-                temperature = options["temperature"]
-                del options["temperature"]
-            if "max_tokens" in options:
-                max_tokens = options["max_tokens"]
-                del options["max_tokens"]
-            if "top_p" in options:
-                top_p = options["top_p"]
-                del options["top_p"]
-            if "frequency_penalty" in options:
-                frequency_penalty = options["frequency_penalty"]
-                del options["frequency_penalty"]
-            if "presence_penalty" in options:
-                presence_penalty = options["presence_penalty"]
-                del options["presence_penalty"]
         # Create the completion
         completion = client.chat.completions.create(
             model=model,

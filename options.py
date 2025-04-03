@@ -221,9 +221,9 @@ class OptionExtraBody:
         try:
             data = json.loads(extra_body)
             if not isinstance(data, dict):
-                return "must be a JSON object (dictionary)"
+                return "extra body must be a JSON object (dictionary)"
         except json.JSONDecodeError as e:
-            return f"Invalid JSON: {e}"
+            return f"extra body is not a valid JSON: {e}"
         return True
 
     def merge(self, extra_body, options=None):
@@ -232,4 +232,34 @@ class OptionExtraBody:
         else:
             options = dict(options)
             options.update(json.loads(extra_body))
+        return (options,)
+
+
+class OptionDeveloperRole:
+    CATEGORY = "OpenAI API/Options"
+    RETURN_TYPES = (OAIAPIIO.OPTIONS,)
+    RETURN_NAMES = ("OPTIONS",)
+    FUNCTION = "merge"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "use_developer_role": (IO.BOOLEAN, {
+                    "default": False,
+                    "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
+                }),
+            },
+            "optional": {
+                "options": (OAIAPIIO.OPTIONS, {
+                    "tooltip": "Others options to merge with",
+                }),
+            },
+        }
+
+    def merge(self, use_developer_role, options=None):
+        if options is None:
+            options = {"use_developer_role": use_developer_role}
+        else:
+            options["use_developer_role"] = use_developer_role
         return (options,)
