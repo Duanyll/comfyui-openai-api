@@ -30,6 +30,7 @@ class OptionSeed:
         if options is None:
             options = {"seed": seed}
         else:
+            options = options.copy()
             options["seed"] = seed
         return (options,)
 
@@ -62,6 +63,7 @@ class OptionTemperature:
         if options is None:
             options = {"temperature": temperature}
         else:
+            options = options.copy()
             options["temperature"] = temperature
         return (options,)
 
@@ -93,6 +95,7 @@ class OptionMaxTokens:
         if options is None:
             options = {"max_tokens": max_tokens}
         else:
+            options = options.copy()
             options["max_tokens"] = max_tokens
         return (options,)
 
@@ -125,6 +128,7 @@ class OptionTopP:
         if options is None:
             options = {"top_p": top_p}
         else:
+            options = options.copy()
             options["top_p"] = top_p
         return (options,)
 
@@ -157,6 +161,7 @@ class OptionFrequencyPenalty:
         if options is None:
             options = {"frequency_penalty": frequency_penalty}
         else:
+            options = options.copy()
             options["frequency_penalty"] = frequency_penalty
         return (options,)
 
@@ -189,6 +194,7 @@ class OptionPresencePenalty:
         if options is None:
             options = {"presence_penalty": presence_penalty}
         else:
+            options = options.copy()
             options["presence_penalty"] = presence_penalty
         return (options,)
 
@@ -230,7 +236,7 @@ class OptionExtraBody:
         if options is None:
             options = json.loads(extra_body)
         else:
-            options = dict(options)
+            options = options.copy()
             options.update(json.loads(extra_body))
         return (options,)
 
@@ -246,7 +252,7 @@ class OptionDeveloperRole:
         return {
             "required": {
                 "use_developer_role": (IO.BOOLEAN, {
-                    "default": False,
+                    "default": True,
                     "tooltip": "With o1 models and newer, OpenAI has changed the 'system' prompt role to 'developper' prompt role. Set this switch to true to set the system prompt as 'developper'.",
                 }),
             },
@@ -261,5 +267,6 @@ class OptionDeveloperRole:
         if options is None:
             options = {"use_developer_role": use_developer_role}
         else:
+            options = options.copy()
             options["use_developer_role"] = use_developer_role
         return (options,)

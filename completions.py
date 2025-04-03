@@ -73,6 +73,7 @@ class ChatCompletion:
         presence_penalty = None
         use_developer_role = False
         if options is not None:
+            options = options.copy()
             if "seed" in options:
                 seed = options["seed"]
                 del options["seed"]
@@ -112,7 +113,7 @@ class ChatCompletion:
             messages = []
             if system_prompt:
                 messages.append({
-                    "role": "developer" if use_developer_role else "system",
+                    "role": system_role,
                     "content": system_prompt,
                 })
         # Handle user message
