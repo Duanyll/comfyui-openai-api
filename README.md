@@ -16,7 +16,9 @@ The default `base_url` parameter value targets the official OpenAI API endpoint 
 
 ### ComfyUI Manager
 
-This project has not been submitted to Comfy Manager yet. To install it with the manager, go to `Custom Nodes Manager` and use the `Install via Git URL` button in the bottom right corner. Enter the following URL: `https://github.com/hekmon/comfyui-openai-api.git`
+Search for `OpenAI API` in the `Custom Nodes Manager` and install it.
+
+![Entry in the ComfyUI manager](res/comfymanager.png)
 
 ### Manually
 
