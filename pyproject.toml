@@ -1,15 +1,15 @@
 [project]
 name = "openai-api"
-description = "Call LLM and VLM in a simple way using the OpenAI API standard from ComfyUI"
+description = "Call LLM and VLM from ComfyUI using the OpenAI API standard. Compatible with custom inference servers like vLLM or TGI thru their support of their OpenAI API implementation."
 version = "1.0.0"
-license = {file = "LICENSE"}
-dependencies = ["openai", "# Same as ComfyUI", "numpy>=1.25.0", "Pillow"]
+license = { file = "LICENSE" }
+dependencies = ["openai", "numpy>=1.25.0", "Pillow"]
 
 [project.urls]
 Repository = "https://github.com/hekmon/comfyui-openai-api"
 #  Used by Comfy Registry https://comfyregistry.org
 
 [tool.comfy]
-PublisherId = ""
-DisplayName = "comfyui-openai-api"
+PublisherId = "hekmon"
+DisplayName = "OpenAI API"
 Icon = ""
