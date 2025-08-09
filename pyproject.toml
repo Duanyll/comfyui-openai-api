@@ -3,7 +3,7 @@ name = "openai-api"
 description = "Call LLM and VLM from ComfyUI using the OpenAI API standard. Compatible with custom inference servers like vLLM or TGI thru their support of their OpenAI API implementation."
 version = "1.0.0"
 license = { file = "LICENSE" }
-dependencies = ["openai", "numpy>=1.25.0", "Pillow"]
+dependencies = ["openai", "numpy>=1.25.0", "Pillow", "dict-hash"]
 
 [project.urls]
 Repository = "https://github.com/hekmon/comfyui-openai-api"

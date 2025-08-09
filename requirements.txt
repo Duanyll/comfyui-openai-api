@@ -1,4 +1,5 @@
 openai
+dict-hash
 
 # Same as ComfyUI
 numpy>=1.25.0

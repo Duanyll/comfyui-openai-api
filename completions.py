@@ -1,6 +1,7 @@
 import base64
 import io
 
+from dict_hash import sha256
 import numpy as np
 from PIL import Image
 
@@ -52,8 +53,18 @@ class ChatCompletion:
 
     @classmethod
     def IS_CHANGED(s, client, model, prompt, system_prompt="", history=None, options=None, image=None):
-        # User might want to regenerate even if we have not changed
-        return float("NaN")
+        # Always regenerate if the seed is not specified
+        if options is None or "seed" not in options:
+            return float("NaN")
+        input_hash = sha256({
+            "model": model,
+            "prompt": prompt,
+            "system_prompt": system_prompt,
+            "history": history,
+            "options": options,
+            "image": image,
+        })
+        return input_hash
 
     @classmethod
     def VALIDATE_INPUTS(cls, model, prompt):
